@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Fix "SPF Too Many DNS Lookups" (PermError) – Step by Step | K09 Tools</title>
+<meta name="description" content="Why SPF fails with 'too many DNS lookups', how the 10-lookup limit is counted, and five practical ways to get back under it without breaking email delivery.">
+<link rel="canonical" href="https://k09zz.github.io/k09-tools/guides/spf-too-many-dns-lookups/">
+<meta property="og:title" content="How to fix &quot;SPF too many DNS lookups&quot;">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://k09zz.github.io/k09-tools/guides/spf-too-many-dns-lookups/">
+<link rel="stylesheet" href="../../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"How to fix \"SPF too many DNS lookups\"","datePublished":"2026-09-23","author":{"@type":"Organization","name":"K09 Tools"},"mainEntityOfPage":"https://k09zz.github.io/k09-tools/guides/spf-too-many-dns-lookups/"}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../../">K09 <span>Tools</span></a>
+  <nav class="site"><a href="../../dmarc-spf-dkim-checker/">SPF/DKIM/DMARC</a><a href="../../spf-record-generator/">SPF generator</a><a href="../../dmarc-record-generator/">DMARC generator</a></nav>
+</div></header>
+
+<main><div class="wrap" style="max-width:720px">
+  <h1>How to fix "SPF too many DNS lookups"</h1>
+  <p class="lede">If a checker reports <strong>PermError: too many DNS lookups</strong>, receivers are treating your SPF as broken, which can push mail to spam or fail DMARC. Here's why it happens and how to fix it.</p>
+
+  <div class="card"><strong>Check your domain first:</strong> the free <a href="../../dmarc-spf-dkim-checker/">SPF, DKIM &amp; DMARC checker</a> shows exactly how many lookups your SPF uses, counted through every include.</div>
+
+  <h2>Why the limit exists</h2>
+  <p>SPF (RFC 7208) caps evaluation at <strong>10 DNS-querying terms</strong>, so a single email can't trigger unbounded DNS traffic. When a receiver hits the eleventh lookup, it stops and returns <code>permerror</code>. Many receivers then treat SPF as failed.</p>
+
+  <h2>What counts toward the 10</h2>
+  <ul>
+    <li><strong>Count:</strong> <code>include:</code>, <code>a</code>, <code>mx</code>, <code>exists:</code>, <code>redirect=</code> and the deprecated <code>ptr</code>, plus <em>everything inside each include</em>. One <code>include:</code> of a big provider can cost 3–4 lookups on its own.</li>
+    <li><strong>Don't count:</strong> <code>ip4:</code>, <code>ip6:</code> and <code>all</code>.</li>
+  </ul>
+  <p>That's why a record with only six includes can still go over: the nested ones add up.</p>
+
+  <h2>Five ways to get back under 10</h2>
+  <h3>1. Remove senders you no longer use</h3>
+  <p>Old newsletter tools, a CRM you cancelled, a help desk you replaced: each still costs lookups. Remove any include for a service that no longer sends as your domain. This is the safest fix and often the only one you need.</p>
+  <h3>2. Drop <code>a</code>, <code>mx</code> and <code>ptr</code> if they aren't needed</h3>
+  <p><code>mx</code> only matters if your inbound mail servers also <em>send</em> mail, which is rare with Google Workspace or Microsoft 365. <code>a</code> only matters if your website server sends mail. <code>ptr</code> is deprecated, so remove it.</p>
+  <h3>3. Move marketing or bulk mail to a subdomain</h3>
+  <p>Send newsletters from <code>news.yourdomain.com</code> and give that subdomain its own SPF record. Each domain gets its own 10 lookups, and it keeps your main domain's reputation separate.</p>
+  <h3>4. Use the provider's return-path instead of an include</h3>
+  <p>Many email platforms send with their own bounce (Return-Path) domain and authenticate with DKIM. For DMARC, those senders don't need to be in your SPF at all. Check your provider's docs: some explicitly say the SPF include is optional.</p>
+  <h3>5. Flatten carefully (last resort)</h3>
+  <p>"Flattening" replaces includes with the IP ranges they resolve to. It works, but providers change their IPs without notice, and a stale flattened record silently breaks delivery. Only flatten with a tool that re-checks and updates the record automatically.</p>
+
+  <h2>After you change it</h2>
+  <ol>
+    <li>Keep exactly <strong>one</strong> SPF TXT record at the root of the domain.</li>
+    <li>Recheck the lookup count with the <a href="../../dmarc-spf-dkim-checker/">checker</a> or build a clean record with the <a href="../../spf-record-generator/">SPF generator</a>, which counts lookups live.</li>
+    <li>Watch your DMARC reports for a few days to confirm every legitimate sender still passes.</li>
+  </ol>
+
+  <div class="card cta">
+    <h3>Managing SPF across many domains?</h3>
+    <p>Agencies and IT teams can audit every client domain in one run: SPF lookup counts, DMARC policies and DKIM, exported to a spreadsheet. <strong>$8 per 1,000 domains</strong>.</p>
+    <a class="btn" href="https://apify.com/k09/email-domain-audit" rel="noopener">Bulk-check domains on Apify</a>
+  </div>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p>K09 Tools. More guides: <a href="../dmarc-none-to-reject/">Moving DMARC from p=none to p=reject</a></p>
+</div></footer>
+</body>
+</html>

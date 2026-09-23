@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free DMARC Record Generator – Create a DMARC TXT Record | K09 Tools</title>
+<meta name="description" content="Free DMARC record generator. Choose a policy (none, quarantine, reject), add report addresses, and get a ready-to-paste DMARC TXT record for _dmarc.yourdomain, with plain-English guidance.">
+<link rel="canonical" href="https://k09zz.github.io/k09-tools/dmarc-record-generator/">
+<meta property="og:title" content="Free DMARC Record Generator">
+<meta property="og:description" content="Pick a policy and report address, get a ready-to-paste DMARC record.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://k09zz.github.io/k09-tools/dmarc-record-generator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","name":"Free DMARC Record Generator","url":"https://k09zz.github.io/k09-tools/dmarc-record-generator/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Which DMARC policy should I start with?","acceptedAnswer":{"@type":"Answer","text":"Start with p=none and a report address, which monitors without affecting delivery. After confirming all legitimate senders pass SPF or DKIM, move to p=quarantine and then p=reject."}},
+  {"@type":"Question","name":"Where do I add the DMARC record?","acceptedAnswer":{"@type":"Answer","text":"Add a TXT record with host _dmarc (the full name is _dmarc.yourdomain.com) and the generated value. Keep only one DMARC record per domain."}},
+  {"@type":"Question","name":"Is p=none enough for Gmail and Yahoo?","acceptedAnswer":{"@type":"Answer","text":"For their 2024 bulk-sender rules, a DMARC record with at least p=none is required, together with SPF, DKIM and alignment. Stricter policies give better spoofing protection."}}
+ ]}
+]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">K09 <span>Tools</span></a>
+  <nav class="site"><a href="../dmarc-spf-dkim-checker/">SPF/DKIM/DMARC</a><a href="../email-validator/">Email validator</a><a href="../pdf-to-csv/">PDF to CSV</a><a href="../word-to-markdown/">Word to Markdown</a></nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>Free DMARC record generator</h1>
+  <p class="lede">Choose how strict you want to be and where reports should go, then paste the record into your DNS. Not sure? The defaults below are the safe way to start.</p>
+
+  <form id="dmarc-form" class="card" onsubmit="return false">
+    <label for="domain"><strong>Your domain</strong></label>
+    <input id="domain" type="text" placeholder="example.com" spellcheck="false" style="margin:6px 0 16px">
+
+    <label for="p"><strong>Policy for mail that fails checks</strong></label>
+    <select id="p" style="display:block;margin:6px 0 16px;font:inherit;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text)">
+      <option value="none" selected>none: monitor only (start here)</option>
+      <option value="quarantine">quarantine: send failures to spam</option>
+      <option value="reject">reject: block failures (strongest)</option>
+    </select>
+
+    <div id="pct-wrap" style="margin-bottom:16px">
+      <label for="pct"><strong>Apply the policy to</strong> <span id="pct-label">100%</span> of failing mail</label>
+      <input id="pct" type="range" min="10" max="100" step="10" value="100" style="width:100%">
+    </div>
+
+    <label for="sp"><strong>Subdomain policy</strong> (optional)</label>
+    <select id="sp" style="display:block;margin:6px 0 16px;font:inherit;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text)">
+      <option value="" selected>Same as main policy</option>
+      <option value="none">none</option><option value="quarantine">quarantine</option><option value="reject">reject</option>
+    </select>
+
+    <label for="rua"><strong>Send daily summary reports to</strong> (recommended)</label>
+    <input id="rua" type="text" placeholder="dmarc-reports@example.com" spellcheck="false" style="margin:6px 0 16px">
+
+    <label for="ruf"><strong>Send failure reports to</strong> (optional, few providers send them)</label>
+    <input id="ruf" type="text" placeholder="" spellcheck="false" style="margin:6px 0 16px">
+
+    <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="strict"> Strict alignment (<code>adkim=s; aspf=s</code>), for advanced setups only</label>
+  </form>
+
+  <div class="card" style="margin-top:16px">
+    <div class="hint" style="margin:0">TXT record · Host: <code id="host"></code></div>
+    <pre id="record" style="font-size:14px"></pre>
+    <div id="notes"></div>
+    <div class="actions"><button type="button" id="copy">Copy record</button><a class="btn secondary" href="../dmarc-spf-dkim-checker/">Check it after publishing →</a></div>
+  </div>
+
+  <div class="card cta">
+    <h3>Rolling DMARC out across many domains?</h3>
+    <p>Audit every domain's SPF, DKIM and DMARC in one run, spot the ones still on <code>p=none</code> or missing reports, and export the list. <strong>$8 per 1,000 domains</strong>.</p>
+    <a class="btn" href="https://apify.com/k09/email-domain-audit" rel="noopener">Bulk-check domains on Apify</a>
+  </div>
+
+  <h2>FAQ</h2>
+  <details><summary>Which policy should I start with?</summary><p>Start with <code>p=none</code> and a report address. That only monitors and never affects delivery. When reports show every legitimate sender passing, move to <code>quarantine</code> and then <code>reject</code>. Our guide walks through it: <a href="../guides/dmarc-none-to-reject/">Moving DMARC from p=none to p=reject</a>.</p></details>
+  <details><summary>Where do I add the record?</summary><p>At your DNS host, add a <strong>TXT</strong> record with host <code>_dmarc</code> (some panels want the full <code>_dmarc.yourdomain.com</code>) and the value above. Keep only one DMARC record per domain.</p></details>
+  <details><summary>Do I need SPF and DKIM first?</summary><p>Yes. DMARC passes only when SPF or DKIM passes <em>and</em> matches your From domain. Set them up first. The <a href="../spf-record-generator/">SPF record generator</a> helps with SPF, and your email provider's admin panel has DKIM.</p></details>
+  <details><summary>Is p=none enough for Gmail and Yahoo?</summary><p>For their 2024 bulk-sender rules, a DMARC record with at least <code>p=none</code> is required (along with SPF, DKIM and alignment). Stricter policies protect your domain from spoofing much better.</p></details>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p>K09 Tools. Free utilities, plus paid bulk versions on Apify: <a href="https://apify.com/k09/email-list-cleaner">Email validator</a> · <a href="https://apify.com/k09/email-domain-audit">Deliverability checker</a> · <a href="https://apify.com/k09/pdf-text-tables">PDF table extractor</a> · <a href="https://apify.com/k09/docs-to-markdown">Docs to Markdown</a></p>
+</div></footer>
+<script type="module" src="../assets/js/dmarc-gen-tool.js"></script>
+</body>
+</html>

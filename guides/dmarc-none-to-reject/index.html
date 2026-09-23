@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Move DMARC from p=none to p=reject Safely | K09 Tools</title>
+<meta name="description" content="A practical, step-by-step plan for moving your DMARC policy from p=none to quarantine and reject without blocking your own legitimate email.">
+<link rel="canonical" href="https://k09zz.github.io/k09-tools/guides/dmarc-none-to-reject/">
+<meta property="og:title" content="How to move DMARC from p=none to p=reject safely">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://k09zz.github.io/k09-tools/guides/dmarc-none-to-reject/">
+<link rel="stylesheet" href="../../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"How to move DMARC from p=none to p=reject safely","datePublished":"2026-09-23","author":{"@type":"Organization","name":"K09 Tools"},"mainEntityOfPage":"https://k09zz.github.io/k09-tools/guides/dmarc-none-to-reject/"}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../../">K09 <span>Tools</span></a>
+  <nav class="site"><a href="../../dmarc-spf-dkim-checker/">SPF/DKIM/DMARC</a><a href="../../spf-record-generator/">SPF generator</a><a href="../../dmarc-record-generator/">DMARC generator</a></nav>
+</div></header>
+
+<main><div class="wrap" style="max-width:720px">
+  <h1>How to move DMARC from p=none to p=reject safely</h1>
+  <p class="lede"><code>p=none</code> only watches. Spoofed email using your domain still gets delivered. Getting to <code>p=reject</code> blocks it, but moving too fast can block your own invoices and newsletters. This is the safe path.</p>
+
+  <div class="card"><strong>Where are you now?</strong> Run the free <a href="../../dmarc-spf-dkim-checker/">SPF, DKIM &amp; DMARC checker</a> to see your current policy, whether reports are enabled, and which DKIM keys it can find.</div>
+
+  <h2>Step 1: Monitor with reports (2–4 weeks)</h2>
+  <p>Publish <code>p=none</code> <strong>with</strong> a report address (<code>rua=mailto:…</code>). The <a href="../../dmarc-record-generator/">DMARC generator</a> builds this for you. Mailbox providers will send daily XML reports listing every server that sent mail as your domain and whether it passed. Raw XML is hard to read, so most people use a free or paid DMARC report viewer.</p>
+
+  <h2>Step 2: Make every legitimate sender pass</h2>
+  <p>For each service in the reports (your email provider, CRM, newsletter tool, billing system, help desk), make sure it passes <strong>SPF or DKIM, aligned with your From domain</strong>:</p>
+  <ul>
+    <li><strong>DKIM (best):</strong> turn on DKIM signing in each service using <em>your</em> domain, and publish the key it gives you.</li>
+    <li><strong>SPF:</strong> add the service to your SPF record, but watch the <a href="../spf-too-many-dns-lookups/">10-lookup limit</a>.</li>
+    <li>Unknown senders that aren't yours are exactly what DMARC will block. Leave them failing.</li>
+  </ul>
+
+  <h2>Step 3: Quarantine a slice, then all of it</h2>
+  <p>Switch to <code>p=quarantine; pct=25</code>. A quarter of failing mail goes to spam while you watch for complaints ("my invoice went to spam"). Raise to 50, then 100 over a week or two.</p>
+
+  <h2>Step 4: Reject</h2>
+  <p>When reports show only unauthorized senders failing, move to <code>p=reject</code>. You can use <code>pct</code> again to ramp up. Consider <code>sp=reject</code> as well so attackers can't spoof unused subdomains.</p>
+
+  <h2>Step 5: Keep watching</h2>
+  <p>New tools get added all the time. Keep the <code>rua</code> reports on and re-check your domain after adding any service that sends email for you.</p>
+
+  <h2>Common mistakes</h2>
+  <ul>
+    <li><strong>Jumping straight to reject</strong> without reports. You won't know what you broke.</li>
+    <li><strong>Two DMARC records.</strong> Receivers ignore both, so keep one.</li>
+    <li><strong>Relying only on SPF.</strong> Forwarded mail breaks SPF but keeps DKIM, so DKIM is what keeps forwarded mail passing.</li>
+  </ul>
+
+  <div class="card cta">
+    <h3>Rolling this out for many domains or clients?</h3>
+    <p>Audit every domain's DMARC policy, reporting and SPF/DKIM status in one run, and track which ones are still on <code>p=none</code>. <strong>$8 per 1,000 domains</strong>.</p>
+    <a class="btn" href="https://apify.com/k09/email-domain-audit" rel="noopener">Bulk-check domains on Apify</a>
+  </div>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p>K09 Tools. More guides: <a href="../spf-too-many-dns-lookups/">How to fix "SPF too many DNS lookups"</a></p>
+</div></footer>
+</body>
+</html>

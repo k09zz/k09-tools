@@ -48,6 +48,8 @@
     <a class="btn" href="https://apify.com/k09/email-domain-audit" rel="noopener">Run the bulk checker on Apify</a>
   </div>
 
+  <p class="hint" style="margin-top:20px">Need to fix something? Use the free <a href="../spf-record-generator/">SPF record generator</a> and <a href="../dmarc-record-generator/">DMARC record generator</a>, or read <a href="../guides/spf-too-many-dns-lookups/">how to fix "SPF too many DNS lookups"</a> and <a href="../guides/dmarc-none-to-reject/">how to move DMARC to p=reject</a>.</p>
+
   <h2>What this checker looks at</h2>
   <p><strong>SPF</strong>: that there's exactly one record, how it ends (<code>-all</code>, <code>~all</code>, <code>?all</code> or the dangerous <code>+all</code>), and that it stays under the <strong>10-DNS-lookup limit</strong> (counted through every include). <strong>DMARC</strong>: whether a policy exists, how strict it is (<code>none</code> / <code>quarantine</code> / <code>reject</code>), and whether reports go anywhere. <strong>DKIM</strong>: over 40 common selectors from Google Workspace, Microsoft 365, Mailchimp, SendGrid, Amazon SES and more, while spotting revoked keys and wildcard DNS. Plus <strong>MTA-STS</strong>, <strong>TLS-RPT</strong> and <strong>BIMI</strong>.</p>
 

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free SPF Record Generator – Google Workspace, Microsoft 365, SendGrid &amp; more | K09 Tools</title>
+<meta name="description" content="Free SPF record generator. Pick your email providers (Google Workspace, Microsoft 365, Amazon SES, SendGrid, Mailchimp and more), get a valid SPF TXT record, and check the 10-DNS-lookup limit live.">
+<link rel="canonical" href="https://k09zz.github.io/k09-tools/spf-record-generator/">
+<meta property="og:title" content="Free SPF Record Generator">
+<meta property="og:description" content="Pick your email providers and get a valid SPF record, with a live 10-lookup check.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://k09zz.github.io/k09-tools/spf-record-generator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","name":"Free SPF Record Generator","url":"https://k09zz.github.io/k09-tools/spf-record-generator/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Where do I add the SPF record?","acceptedAnswer":{"@type":"Answer","text":"In your domain's DNS settings, add a TXT record with host @ (the root of the domain) and the generated value. A domain must have only one SPF record, so edit the existing one if there is one."}},
+  {"@type":"Question","name":"Should I use -all or ~all?","acceptedAnswer":{"@type":"Answer","text":"~all (softfail) is the safe choice while you confirm every sender is listed. Once DMARC reports show all legitimate mail passing, -all (fail) is stricter. Never use +all."}},
+  {"@type":"Question","name":"What is the SPF 10 DNS lookup limit?","acceptedAnswer":{"@type":"Answer","text":"Receivers stop evaluating SPF after 10 DNS-querying terms (include, a, mx, exists, redirect), counted through nested includes. Going over makes SPF fail with a permerror."}}
+ ]}
+]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">K09 <span>Tools</span></a>
+  <nav class="site"><a href="../dmarc-spf-dkim-checker/">SPF/DKIM/DMARC</a><a href="../email-validator/">Email validator</a><a href="../pdf-to-csv/">PDF to CSV</a><a href="../word-to-markdown/">Word to Markdown</a></nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>Free SPF record generator</h1>
+  <p class="lede">Tick the services that send email for your domain and get a valid SPF record to paste into your DNS. The page counts DNS lookups live, so you won't break the 10-lookup limit.</p>
+
+  <form id="spf-form" class="card" onsubmit="return false">
+    <h3 style="margin-top:0">1. Who sends email for your domain?</h3>
+    <div id="providers"></div>
+    <label style="display:flex;gap:8px;align-items:center;margin:10px 0 4px"><input type="checkbox" id="use-mx"> My own mail servers (the domain's MX hosts): <code>mx</code></label>
+    <label style="display:flex;gap:8px;align-items:center;margin:4px 0"><input type="checkbox" id="use-a"> My web server (the domain's A record): <code>a</code></label>
+    <h3>2. Other IP addresses or includes (optional)</h3>
+    <input id="extra" type="text" placeholder="203.0.113.10, 198.51.100.0/24, spf.example-sender.com" spellcheck="false">
+    <h3>3. What should happen to mail from anywhere else?</h3>
+    <select id="policy" style="font:inherit;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text)">
+      <option value="~all" selected>~all (softfail): recommended to start</option>
+      <option value="-all">-all (fail): strict, once everything passes</option>
+      <option value="?all">?all (neutral): no protection</option>
+    </select>
+  </form>
+
+  <div class="card" style="margin-top:16px">
+    <div class="label hint" style="margin:0">TXT record · Host: <code>@</code></div>
+    <pre id="record" style="font-size:14px"></pre>
+    <div id="lookups" class="hint"></div>
+    <div id="warnings"></div>
+    <div class="actions"><button type="button" id="copy">Copy record</button><a class="btn secondary" href="../dmarc-record-generator/">Next: DMARC record →</a></div>
+  </div>
+
+  <div class="card cta">
+    <h3>Already published it? Check it.</h3>
+    <p>DNS changes can take a few minutes to show up. Then run the free <a href="../dmarc-spf-dkim-checker/">SPF, DKIM &amp; DMARC checker</a>. Managing many domains? The <strong>bulk deliverability checker</strong> audits hundreds at once for <strong>$8 per 1,000 domains</strong>.</p>
+    <a class="btn" href="https://apify.com/k09/email-domain-audit" rel="noopener">Bulk-check domains on Apify</a>
+  </div>
+
+  <h2>FAQ</h2>
+  <details><summary>Where do I add the SPF record?</summary><p>In your domain's DNS settings (at your registrar or DNS host), add a <strong>TXT</strong> record with host <code>@</code> and the value above. A domain may have <strong>only one</strong> SPF record. If one already exists, replace it with the combined record.</p></details>
+  <details><summary>Should I use -all or ~all?</summary><p>Start with <code>~all</code> while you confirm every sender is listed. Once your DMARC reports show all legitimate mail passing, you can switch to <code>-all</code>. Never use <code>+all</code>, which lets anyone send as you.</p></details>
+  <details><summary>What is the 10 DNS lookup limit?</summary><p>Receivers stop evaluating SPF after 10 DNS-querying terms (<code>include</code>, <code>a</code>, <code>mx</code>, <code>exists</code>, <code>redirect</code>), counted through every nested include. Going over makes SPF fail. See our guide: <a href="../guides/spf-too-many-dns-lookups/">How to fix "SPF too many DNS lookups"</a>.</p></details>
+  <details><summary>My provider isn't listed.</summary><p>Look up "SPF" in your provider's help pages and paste the include (for example <code>spf.provider.com</code>) or IP ranges into box 2.</p></details>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p>K09 Tools. Free utilities, plus paid bulk versions on Apify: <a href="https://apify.com/k09/email-list-cleaner">Email validator</a> · <a href="https://apify.com/k09/email-domain-audit">Deliverability checker</a> · <a href="https://apify.com/k09/pdf-text-tables">PDF table extractor</a> · <a href="https://apify.com/k09/docs-to-markdown">Docs to Markdown</a></p>
+</div></footer>
+<script type="module" src="../assets/js/spf-tool.js"></script>
+</body>
+</html>
