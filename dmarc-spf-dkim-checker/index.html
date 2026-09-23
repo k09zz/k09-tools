@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free SPF, DKIM &amp; DMARC Checker – Email Deliverability Test | K09 Tools</title>
+<meta name="description" content="Free SPF, DKIM and DMARC checker. Grade any domain A–F, see plain-English fixes, and check Gmail and Yahoo bulk-sender requirements. No sign-up.">
+<link rel="canonical" href="https://k09zz.github.io/k09-tools/dmarc-spf-dkim-checker/">
+<meta property="og:title" content="Free SPF, DKIM & DMARC Checker">
+<meta property="og:description" content="Grade any domain's email authentication A–F with plain-English fixes. Checks Gmail & Yahoo bulk-sender basics.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://k09zz.github.io/k09-tools/dmarc-spf-dkim-checker/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","name":"Free SPF, DKIM & DMARC Checker","url":"https://k09zz.github.io/k09-tools/dmarc-spf-dkim-checker/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"What are SPF, DKIM and DMARC?","acceptedAnswer":{"@type":"Answer","text":"SPF lists the servers allowed to send mail for your domain, DKIM signs each message with a key published in DNS, and DMARC tells receivers what to do when a message fails those checks and where to send reports."}},
+  {"@type":"Question","name":"What do Gmail and Yahoo require from bulk senders?","acceptedAnswer":{"@type":"Answer","text":"Since 2024, senders of more than 5,000 messages a day to Gmail or Yahoo need SPF and DKIM, a DMARC record (at least p=none), aligned From domains, easy unsubscribe and low spam rates."}},
+  {"@type":"Question","name":"Why does it say DKIM was not found when I have DKIM?","acceptedAnswer":{"@type":"Answer","text":"DKIM keys live under a selector name that can't be listed from DNS. The checker probes over 40 common selectors; if your provider uses a custom one, send yourself an email and look for the s= value in the DKIM-Signature header."}},
+  {"@type":"Question","name":"Is this checker free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Lookups run in your browser over public DNS-over-HTTPS. For checking many domains at once, exporting to CSV or running on a schedule, there is a paid bulk version on Apify."}}
+ ]}
+]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">K09 <span>Tools</span></a>
+  <nav class="site"><a href="./" aria-current="page">SPF/DKIM/DMARC</a><a href="../email-validator/">Email validator</a><a href="../#bulk">Bulk &amp; API</a></nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>Free SPF, DKIM &amp; DMARC checker</h1>
+  <p class="lede">Check whether a domain's email setup will land in the inbox. Get an A–F grade, the exact records we found, and plain-English fixes you can paste into your DNS.</p>
+
+  <form id="check-form" class="tool" autocomplete="off">
+    <label for="domain" class="visually-hidden" style="position:absolute;left:-9999px">Domain</label>
+    <input id="domain" type="text" placeholder="example.com" inputmode="url" spellcheck="false" required>
+    <button id="check-btn" type="submit">Check domain</button>
+  </form>
+  <p class="hint">Works with a domain, an email address or a website URL. Lookups happen in your browser; nothing is stored.</p>
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <div id="result" class="result"></div>
+
+  <div class="card cta">
+    <h3>Checking a list of domains?</h3>
+    <p>Audit hundreds or thousands of domains at once, export to CSV/Excel/JSON, call it from an API, or run it on a schedule. Useful for agencies, IT consultants and cold-email teams. <strong>$8 per 1,000 domains</strong>, no subscription.</p>
+    <a class="btn" href="https://apify.com/k09/email-domain-audit" rel="noopener">Run the bulk checker on Apify</a>
+  </div>
+
+  <h2>What this checker looks at</h2>
+  <p><strong>SPF</strong>: that there's exactly one record, how it ends (<code>-all</code>, <code>~all</code>, <code>?all</code> or the dangerous <code>+all</code>), and that it stays under the <strong>10-DNS-lookup limit</strong> (counted through every include). <strong>DMARC</strong>: whether a policy exists, how strict it is (<code>none</code> / <code>quarantine</code> / <code>reject</code>), and whether reports go anywhere. <strong>DKIM</strong>: over 40 common selectors from Google Workspace, Microsoft 365, Mailchimp, SendGrid, Amazon SES and more, while spotting revoked keys and wildcard DNS. Plus <strong>MTA-STS</strong>, <strong>TLS-RPT</strong> and <strong>BIMI</strong>.</p>
+
+  <h2>FAQ</h2>
+  <details><summary>What are SPF, DKIM and DMARC?</summary><p>SPF lists the servers allowed to send mail for your domain. DKIM signs each message with a key published in DNS. DMARC tells receivers what to do when a message fails those checks, and where to send reports. Together they stop spoofing and help your mail reach the inbox.</p></details>
+  <details><summary>What do Gmail and Yahoo require from bulk senders?</summary><p>Since 2024, anyone sending more than 5,000 messages a day to Gmail or Yahoo needs SPF and DKIM, a DMARC record (at least <code>p=none</code>), a From domain aligned with SPF or DKIM, one-click unsubscribe, and a low spam-complaint rate. This checker confirms the DNS part.</p></details>
+  <details><summary>Why does it say DKIM wasn't found when I have DKIM?</summary><p>DKIM keys live under a "selector" name that can't be listed from DNS, so every checker has to guess. We try over 40 common ones. If your provider uses a custom selector, send yourself an email and look for <code>s=</code> in the <code>DKIM-Signature</code> header.</p></details>
+  <details><summary>How is the grade calculated?</summary><p>Out of 100 points: SPF 30, DMARC 40 (a <code>reject</code> policy scores highest), DKIM 20, and 10 for MTA-STS, TLS-RPT and BIMI. A = 90+, B = 75+, C = 60+, D = 40+, F below 40.</p></details>
+  <details><summary>Is it free? Do you store my data?</summary><p>It's free, with no sign-up. Lookups run in your browser through public DNS-over-HTTPS (Cloudflare, with Google as backup), which see only the DNS names being looked up. This site doesn't store or log what you check.</p></details>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p>K09 Tools. Free utilities, plus paid bulk versions on Apify: <a href="https://apify.com/k09/email-list-cleaner">Email validator</a> · <a href="https://apify.com/k09/email-domain-audit">Deliverability checker</a> · <a href="https://apify.com/k09/pdf-text-tables">PDF table extractor</a> · <a href="https://apify.com/k09/docs-to-markdown">Docs to Markdown</a></p>
+</div></footer>
+<script type="module" src="../assets/js/dmarc-tool.js"></script>
+</body>
+</html>

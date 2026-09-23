@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://k09zz.github.io/k09-tools/sitemap.xml

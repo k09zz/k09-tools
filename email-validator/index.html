@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Email Validator – Check Emails for Typos, MX &amp; Disposable Domains | K09 Tools</title>
+<meta name="description" content="Free bulk email validator for up to 100 addresses. Checks syntax, MX records, disposable domains, role accounts and typos like gmial.com. Download results as CSV. No sign-up.">
+<link rel="canonical" href="https://k09zz.github.io/k09-tools/email-validator/">
+<meta property="og:title" content="Free Email Validator: Typos, MX & Disposable Domains">
+<meta property="og:description" content="Paste up to 100 emails and see which are invalid, risky or ok, with plain-English reasons. Download as CSV.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://k09zz.github.io/k09-tools/email-validator/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","name":"Free Email Validator","url":"https://k09zz.github.io/k09-tools/email-validator/","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Does this check whether the mailbox exists?","acceptedAnswer":{"@type":"Answer","text":"No. It checks syntax, whether the domain can receive mail (MX records), disposable domains, role accounts and common typos. Mailbox-level SMTP checks are slow, often blocked, and can hurt sender reputation."}},
+  {"@type":"Question","name":"What does risky mean?","acceptedAnswer":{"@type":"Answer","text":"The address can receive mail but has a red flag: a disposable domain, a role account like info@, a likely typo such as gmial.com, or a domain without a proper MX record."}},
+  {"@type":"Question","name":"How many emails can I check for free?","acceptedAnswer":{"@type":"Answer","text":"Up to 100 unique emails at a time in the browser. For larger lists, file uploads, an API or scheduled runs, use the bulk version on Apify at $0.60 per 1,000 emails."}}
+ ]}
+]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">K09 <span>Tools</span></a>
+  <nav class="site"><a href="../dmarc-spf-dkim-checker/">SPF/DKIM/DMARC</a><a href="./" aria-current="page">Email validator</a><a href="../#bulk">Bulk &amp; API</a></nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>Free email validator</h1>
+  <p class="lede">Paste up to 100 email addresses and find the broken ones before you hit send. Checks syntax, mail servers (MX), disposable domains, role accounts and typos like <code>gmial.com</code>.</p>
+
+  <form id="validate-form" autocomplete="off">
+    <label for="emails" style="position:absolute;left:-9999px">Email addresses</label>
+    <textarea id="emails" spellcheck="false" placeholder="jane.doe@gmail.com&#10;info@acme.com&#10;someone@gmial.com&#10;test@mailinator.com"></textarea>
+    <div class="actions" style="margin-top:10px"><button id="validate-btn" type="submit">Validate emails</button></div>
+  </form>
+  <p class="hint">One per line, or separated by commas. You can also paste a whole CSV. Checks run in your browser, and addresses aren't sent to this site.</p>
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <div id="result" class="result"></div>
+
+  <div class="card cta">
+    <h3>Cleaning a bigger list?</h3>
+    <p>Upload a CSV with thousands of addresses, get a clean list plus a full report, and run it from an API, Zapier/Make or on a schedule. <strong>$0.60 per 1,000 emails</strong>, and duplicates are free.</p>
+    <a class="btn" href="https://apify.com/k09/email-list-cleaner" rel="noopener">Clean a full list on Apify</a>
+  </div>
+
+  <h2>What each status means</h2>
+  <p><span class="pill good">ok</span> passed every check. <span class="pill warn">risky</span> can receive mail but is flagged (disposable, role account, likely typo, or no MX record). <span class="pill bad">invalid</span> can't receive email (bad syntax, domain doesn't exist, or no mail servers). <span class="pill muted">unknown</span> means the DNS lookup failed, so try again.</p>
+
+  <h2>FAQ</h2>
+  <details><summary>Does this check whether the mailbox exists?</summary><p>No. It checks everything that can be verified safely: syntax, whether the domain can receive mail, disposable domains, role accounts and common typos. Mailbox-level (SMTP) checks are slow, often blocked, and can hurt your sender reputation. Use this to remove obvious junk cheaply first.</p></details>
+  <details><summary>Which disposable domains do you detect?</summary><p>Thousands, from a community-maintained public list that updates constantly (mailinator.com, 10minutemail and so on), including their subdomains.</p></details>
+  <details><summary>How many emails can I check for free?</summary><p>Up to 100 unique emails at a time. For bigger lists, file uploads, an API or scheduled runs, use the <a href="https://apify.com/k09/email-list-cleaner">bulk version on Apify</a>.</p></details>
+  <details><summary>Also want to check a sending domain?</summary><p>Try the free <a href="../dmarc-spf-dkim-checker/">SPF, DKIM &amp; DMARC checker</a> to see whether your own emails will land in the inbox.</p></details>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p>K09 Tools. Free utilities, plus paid bulk versions on Apify: <a href="https://apify.com/k09/email-list-cleaner">Email validator</a> · <a href="https://apify.com/k09/email-domain-audit">Deliverability checker</a> · <a href="https://apify.com/k09/pdf-text-tables">PDF table extractor</a> · <a href="https://apify.com/k09/docs-to-markdown">Docs to Markdown</a></p>
+</div></footer>
+<script type="module" src="../assets/js/email-tool.js"></script>
+</body>
+</html>
