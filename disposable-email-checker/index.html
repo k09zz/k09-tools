@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Disposable Email Checker – Detect Temporary Email Addresses | K09 Tools</title>
+<meta name="description" content="Check whether an email address or domain is disposable (temporary, throwaway). Uses a constantly updated list of thousands of disposable domains, plus MX and typo checks. Free, no sign-up.">
+<link rel="canonical" href="https://k09zz.github.io/k09-tools/disposable-email-checker/">
+<meta property="og:title" content="Free disposable email checker">
+<meta property="og:description" content="Check whether an email address or domain is disposable (temporary, throwaway). Uses a constantly updated list of thousands of disposable domains, plus MX and typo checks. Free, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://k09zz.github.io/k09-tools/disposable-email-checker/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Free disposable email checker","url":"https://k09zz.github.io/k09-tools/disposable-email-checker/","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a disposable email address?","acceptedAnswer":{"@type":"Answer","text":"An inbox from a service that creates temporary addresses on demand, often used to grab a free trial or download without giving a real email. Mail to them is usually never read."}},{"@type":"Question","name":"How many disposable domains do you detect?","acceptedAnswer":{"@type":"Answer","text":"Thousands, from a community-maintained public list (CC0) that is updated constantly, including subdomains of known services."}},{"@type":"Question","name":"Is a non-disposable address always real?","acceptedAnswer":{"@type":"Answer","text":"No. This checks the domain, not the individual mailbox. Use the email validator to also catch bad syntax, dead domains and role accounts."}}]}]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">K09 <span>Tools</span></a>
+  <nav class="site"><a href="../dmarc-spf-dkim-checker/">SPF/DKIM/DMARC</a><a href="../email-validator/">Email validator</a><a href="../pdf-to-csv/">PDF to CSV</a><a href="../word-to-markdown/">Word to Markdown</a></nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>Free disposable email checker</h1>
+  <p class="lede">Find out whether an email address uses a temporary "throwaway" inbox service like Mailinator or 10 Minute Mail. It also checks that the domain can receive mail and catches typos like gmial.com.</p>
+
+  <form id="dea-form" class="tool" autocomplete="off">
+    <label for="addr" style="position:absolute;left:-9999px">Email or domain</label>
+    <input id="addr" type="text" placeholder="someone@mailinator.com or mailinator.com" spellcheck="false" required>
+    <button type="submit" id="dea-btn">Check</button>
+  </form>
+  <p class="hint">Checks run in your browser. Need to check a list? Use the <a href="../email-validator/">free email validator</a> (up to 100 at once).</p>
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <div id="result" class="result"></div>
+
+  <div class="card cta">
+    <h3>Blocking throwaway sign-ups at scale?</h3>
+    <p>Clean your whole user or lead list, or call it from your sign-up flow through the API: disposable domains, MX records, role accounts and typos in one pass. <strong>$0.60 per 1,000 emails</strong>.</p>
+    <a class="btn" href="https://apify.com/k09/email-list-cleaner" rel="noopener">Use the Email Validator on Apify</a>
+  </div>
+
+  <h2>FAQ</h2>
+  <details><summary>What is a disposable email address?</summary><p>An inbox from a service that creates temporary addresses on demand, often used to grab a free trial or download without giving a real email. Mail to them is usually never read.</p></details>
+  <details><summary>How many disposable domains do you detect?</summary><p>Thousands, from a community-maintained public list (CC0) that is updated constantly, including subdomains of known services.</p></details>
+  <details><summary>Is a non-disposable address always real?</summary><p>No. This checks the domain, not the individual mailbox. Use the <a href="../email-validator/">email validator</a> to also catch bad syntax, dead domains and role accounts.</p></details>
+  <p class="hint" style="margin-top:24px">Related free tools: <a href="../email-validator/">Email validator</a> · <a href="../dmarc-spf-dkim-checker/">SPF/DKIM/DMARC checker</a></p>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p>K09 Tools. Free utilities, plus paid bulk versions on Apify: <a href="https://apify.com/k09/email-list-cleaner">Email validator</a> · <a href="https://apify.com/k09/email-domain-audit">Deliverability checker</a> · <a href="https://apify.com/k09/pdf-text-tables">PDF table extractor</a> · <a href="https://apify.com/k09/docs-to-markdown">Docs to Markdown</a></p>
+</div></footer>
+<script type="module" src="../assets/js/dea-tool.js"></script>
+</body>
+</html>

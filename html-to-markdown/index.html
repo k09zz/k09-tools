@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free HTML to Markdown Converter | K09 Tools</title>
+<meta name="description" content="Convert HTML to clean Markdown: headings, lists, links, tables and code blocks. Scripts, styles and navigation are removed. Paste HTML or upload a file; runs in your browser.">
+<link rel="canonical" href="https://k09zz.github.io/k09-tools/html-to-markdown/">
+<meta property="og:title" content="Free HTML to Markdown converter">
+<meta property="og:description" content="Convert HTML to clean Markdown: headings, lists, links, tables and code blocks. Scripts, styles and navigation are removed. Paste HTML or upload a file; runs in your browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://k09zz.github.io/k09-tools/html-to-markdown/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Free HTML to Markdown converter","url":"https://k09zz.github.io/k09-tools/html-to-markdown/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What gets removed?","acceptedAnswer":{"@type":"Answer","text":"Scripts, styles, iframes, SVGs, the page head, navigation menus and footers, so you keep the content and lose the clutter."}},{"@type":"Question","name":"Are tables supported?","acceptedAnswer":{"@type":"Answer","text":"Yes. HTML tables become GitHub-flavored Markdown tables. If a table has no header cells, its first row is used as the header."}},{"@type":"Question","name":"Can it fetch a web page for me?","acceptedAnswer":{"@type":"Answer","text":"No. It converts HTML you paste or files you have. Only convert content you have the right to use."}}]}]}
+</script>
+</head>
+<body data-mode="html">
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">K09 <span>Tools</span></a>
+  <nav class="site"><a href="../dmarc-spf-dkim-checker/">SPF/DKIM/DMARC</a><a href="../email-validator/">Email validator</a><a href="../pdf-to-csv/">PDF to CSV</a><a href="../word-to-markdown/">Word to Markdown</a></nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>Free HTML to Markdown converter</h1>
+  <p class="lede">Paste HTML, or choose an .html file you saved, and get clean Markdown with headings, lists, links, tables and code blocks. Scripts, styles, navigation and footers are stripped out.</p>
+
+  <div class="card">
+    <label for="input"><strong>Paste HTML</strong></label>
+    <textarea id="input" spellcheck="false" style="margin-top:8px" placeholder="&lt;h1&gt;Title&lt;/h1&gt;&#10;&lt;p&gt;Some &lt;strong&gt;bold&lt;/strong&gt; text.&lt;/p&gt;"></textarea>
+    <div class="actions"><button type="button" id="convert">Convert to Markdown</button>
+      <label class="btn secondary" style="cursor:pointer">Or choose a file<input id="file" type="file" accept=".html,.htm,text/html" style="display:none"></label></div>
+    <p class="hint">Nothing is uploaded: conversion happens in your browser.</p>
+  </div>
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <div id="result" class="result"></div>
+
+  <div class="card cta">
+    <h3>Converting documents in bulk for AI?</h3>
+    <p>The <strong>Docs to Markdown for AI</strong> Actor converts Word, Excel, PowerPoint, PDF, HTML and CSV from links or uploads, adds RAG-ready chunking with heading paths, and works through an API, Zapier or Make. <strong>$4 per 1,000 documents</strong>.</p>
+    <a class="btn" href="https://apify.com/k09/docs-to-markdown" rel="noopener">Use Docs to Markdown on Apify</a>
+  </div>
+
+  <h2>FAQ</h2>
+  <details><summary>What gets removed?</summary><p>Scripts, styles, iframes, SVGs, the page head, navigation menus and footers, so you keep the content and lose the clutter.</p></details>
+  <details><summary>Are tables supported?</summary><p>Yes. HTML tables become GitHub-flavored Markdown tables. If a table has no header cells, its first row is used as the header.</p></details>
+  <details><summary>Can it fetch a web page for me?</summary><p>No. It converts HTML you paste or files you have. Only convert content you have the right to use.</p></details>
+  <p class="hint" style="margin-top:24px">Related free tools: <a href="../word-to-markdown/">Word to Markdown</a> · <a href="../excel-to-markdown/">Excel to Markdown</a> · <a href="../csv-to-markdown/">CSV to Markdown</a> · <a href="../html-to-markdown/">HTML to Markdown</a> · <a href="../pdf-to-csv/">PDF to CSV</a></p>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p>K09 Tools. Free utilities, plus paid bulk versions on Apify: <a href="https://apify.com/k09/email-list-cleaner">Email validator</a> · <a href="https://apify.com/k09/email-domain-audit">Deliverability checker</a> · <a href="https://apify.com/k09/pdf-text-tables">PDF table extractor</a> · <a href="https://apify.com/k09/docs-to-markdown">Docs to Markdown</a></p>
+</div></footer>
+<script type="module" src="../assets/js/convert-tools.js"></script>
+</body>
+</html>

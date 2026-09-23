@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Excel to Markdown Converter – XLSX to Markdown Tables | K09 Tools</title>
+<meta name="description" content="Convert Excel (.xlsx) to Markdown tables. Every visible sheet becomes a section with a clean table; formulas show their results and dates become ISO format. Runs in your browser.">
+<link rel="canonical" href="https://k09zz.github.io/k09-tools/excel-to-markdown/">
+<meta property="og:title" content="Free Excel to Markdown converter">
+<meta property="og:description" content="Convert Excel (.xlsx) to Markdown tables. Every visible sheet becomes a section with a clean table; formulas show their results and dates become ISO format. Runs in your browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://k09zz.github.io/k09-tools/excel-to-markdown/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Free Excel to Markdown converter","url":"https://k09zz.github.io/k09-tools/excel-to-markdown/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What happens with multiple sheets?","acceptedAnswer":{"@type":"Answer","text":"Each visible sheet becomes its own ## Sheet name section with a table. Hidden sheets are skipped, and empty columns are removed."}},{"@type":"Question","name":"Do formulas work?","acceptedAnswer":{"@type":"Answer","text":"Yes. The calculated value saved in the file is used (for example =C2*D2 becomes 28.5). Dates are written as ISO dates like 2026-09-01."}},{"@type":"Question","name":"Is my spreadsheet uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. It is read by your browser using the open-source ExcelJS library and never leaves your computer."}}]}]}
+</script>
+</head>
+<body data-mode="excel">
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">K09 <span>Tools</span></a>
+  <nav class="site"><a href="../dmarc-spf-dkim-checker/">SPF/DKIM/DMARC</a><a href="../email-validator/">Email validator</a><a href="../pdf-to-csv/">PDF to CSV</a><a href="../word-to-markdown/">Word to Markdown</a></nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>Free Excel to Markdown converter</h1>
+  <p class="lede">Choose an .xlsx file and get every visible sheet as a Markdown table, ready for ChatGPT, RAG pipelines, docs or GitHub. Formula results, rich text and dates are handled, and your file stays on your computer.</p>
+
+  <div class="card">
+    <label for="file"><strong>Choose an Excel file (.xlsx)</strong></label>
+    <input id="file" type="file" accept=".xlsx,.xlsm,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display:block;margin-top:10px">
+    <p class="hint">Converted in your browser, so nothing is uploaded. Old .xls files need to be saved as .xlsx first.</p>
+  </div>
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <div id="result" class="result"></div>
+
+  <div class="card cta">
+    <h3>Converting documents in bulk for AI?</h3>
+    <p>The <strong>Docs to Markdown for AI</strong> Actor converts Word, Excel, PowerPoint, PDF, HTML and CSV from links or uploads, adds RAG-ready chunking with heading paths, and works through an API, Zapier or Make. <strong>$4 per 1,000 documents</strong>.</p>
+    <a class="btn" href="https://apify.com/k09/docs-to-markdown" rel="noopener">Use Docs to Markdown on Apify</a>
+  </div>
+
+  <h2>FAQ</h2>
+  <details><summary>What happens with multiple sheets?</summary><p>Each visible sheet becomes its own <code>## Sheet name</code> section with a table. Hidden sheets are skipped, and empty columns are removed.</p></details>
+  <details><summary>Do formulas work?</summary><p>Yes. The calculated value saved in the file is used (for example <code>=C2*D2</code> becomes <code>28.5</code>). Dates are written as ISO dates like 2026-09-01.</p></details>
+  <details><summary>Is my spreadsheet uploaded?</summary><p>No. It is read by your browser using the open-source ExcelJS library and never leaves your computer.</p></details>
+  <p class="hint" style="margin-top:24px">Related free tools: <a href="../word-to-markdown/">Word to Markdown</a> · <a href="../excel-to-markdown/">Excel to Markdown</a> · <a href="../csv-to-markdown/">CSV to Markdown</a> · <a href="../html-to-markdown/">HTML to Markdown</a> · <a href="../pdf-to-csv/">PDF to CSV</a></p>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p>K09 Tools. Free utilities, plus paid bulk versions on Apify: <a href="https://apify.com/k09/email-list-cleaner">Email validator</a> · <a href="https://apify.com/k09/email-domain-audit">Deliverability checker</a> · <a href="https://apify.com/k09/pdf-text-tables">PDF table extractor</a> · <a href="https://apify.com/k09/docs-to-markdown">Docs to Markdown</a></p>
+</div></footer>
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+<script type="module" src="../assets/js/convert-tools.js"></script>
+</body>
+</html>
