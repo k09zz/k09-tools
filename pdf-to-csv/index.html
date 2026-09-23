@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free PDF to CSV – Extract Tables &amp; Text from PDF | K09 Tools</title>
+<meta name="description" content="Free PDF to CSV converter. Extract tables from PDFs (invoices, bank statements, reports) into CSV, plus clean text from every page. Runs in your browser, so files are never uploaded.">
+<link rel="canonical" href="https://k09zz.github.io/k09-tools/pdf-to-csv/">
+<meta property="og:title" content="Free PDF to CSV: extract tables from PDF">
+<meta property="og:description" content="Turn PDF tables into CSV and get clean page text, right in your browser. No upload, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://k09zz.github.io/k09-tools/pdf-to-csv/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","name":"Free PDF to CSV","url":"https://k09zz.github.io/k09-tools/pdf-to-csv/","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Is my PDF uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. The PDF is read by your browser on your own computer and never leaves it."}},
+  {"@type":"Question","name":"Does it work on scanned PDFs?","acceptedAnswer":{"@type":"Answer","text":"No. Scanned PDFs are images without a text layer and need OCR. This tool works on digital PDFs exported from software, which covers most invoices, statements and reports."}},
+  {"@type":"Question","name":"Can I convert many PDFs at once?","acceptedAnswer":{"@type":"Answer","text":"The free tool reads one PDF at a time, up to 20 pages. For batches, links, long documents or API access, use the PDF Table Extractor on Apify at $2 per 1,000 pages."}}
+ ]}
+]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">K09 <span>Tools</span></a>
+  <nav class="site"><a href="../dmarc-spf-dkim-checker/">SPF/DKIM/DMARC</a><a href="../email-validator/">Email validator</a><a href="./" aria-current="page">PDF to CSV</a><a href="../word-to-markdown/">Word to Markdown</a></nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>Free PDF to CSV: extract tables from PDF</h1>
+  <p class="lede">Pick a PDF and get every table as a CSV you can open in Excel or Google Sheets, plus clean text from each page. Your file stays on your computer.</p>
+
+  <div class="card">
+    <label for="file"><strong>Choose a PDF</strong></label>
+    <input id="file" type="file" accept="application/pdf,.pdf" style="display:block;margin-top:10px">
+    <p class="hint">Digital (non-scanned) PDFs, up to 20 pages for free. Nothing is uploaded.</p>
+  </div>
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <div id="result" class="result"></div>
+
+  <div class="card cta">
+    <h3>Converting many PDFs or long ones?</h3>
+    <p>Process batches of PDFs from links or uploads, choose page ranges, get one CSV per table plus JSON output, and automate it through the API or Zapier/Make. <strong>$2 per 1,000 pages</strong> + $5 per 1,000 tables, and failed files are free.</p>
+    <a class="btn" href="https://apify.com/k09/pdf-text-tables" rel="noopener">Use the PDF Table Extractor on Apify</a>
+  </div>
+
+  <h2>FAQ</h2>
+  <details><summary>Is my PDF uploaded anywhere?</summary><p>No. The PDF is read by your browser (using Mozilla's open-source pdf.js) on your own computer and never leaves it.</p></details>
+  <details><summary>Which tables does it detect?</summary><p>Tables whose columns line up, the kind found in most invoices, bank and card statements, price lists and financial reports, including right-aligned numbers. Tables with cells that wrap over several lines or merged headers may need a quick check.</p></details>
+  <details><summary>Does it work on scanned PDFs?</summary><p>No. Scanned PDFs are pictures of pages and need OCR. This tool reads digital PDFs exported from software.</p></details>
+  <details><summary>Can I convert many PDFs at once?</summary><p>The free tool handles one PDF at a time, up to 20 pages. For batches, links, long documents or API access, use the <a href="https://apify.com/k09/pdf-text-tables">PDF Table Extractor on Apify</a>.</p></details>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p>K09 Tools. Free utilities, plus paid bulk versions on Apify: <a href="https://apify.com/k09/email-list-cleaner">Email validator</a> · <a href="https://apify.com/k09/email-domain-audit">Deliverability checker</a> · <a href="https://apify.com/k09/pdf-text-tables">PDF table extractor</a> · <a href="https://apify.com/k09/docs-to-markdown">Docs to Markdown</a></p>
+</div></footer>
+<script type="module" src="../assets/js/pdf-tool.js"></script>
+</body>
+</html>

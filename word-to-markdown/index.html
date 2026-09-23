@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Word to Markdown Converter – DOCX to Markdown | K09 Tools</title>
+<meta name="description" content="Free Word to Markdown converter. Turn .docx files into clean Markdown with headings, lists, links and tables, ready for ChatGPT, RAG, docs sites and GitHub. Runs in your browser.">
+<link rel="canonical" href="https://k09zz.github.io/k09-tools/word-to-markdown/">
+<meta property="og:title" content="Free Word (DOCX) to Markdown converter">
+<meta property="og:description" content="Convert .docx to clean Markdown with headings, lists and tables, right in your browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://k09zz.github.io/k09-tools/word-to-markdown/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","name":"Free Word to Markdown Converter","url":"https://k09zz.github.io/k09-tools/word-to-markdown/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Is my document uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The .docx file is converted by your browser on your own computer and never leaves it."}},
+  {"@type":"Question","name":"What formatting is kept?","acceptedAnswer":{"@type":"Answer","text":"Headings, paragraphs, bold and italic, bulleted and numbered lists, links and tables. Images are replaced by their alt text so the Markdown stays clean for AI tools."}},
+  {"@type":"Question","name":"Can I convert Excel, PowerPoint or PDF too?","acceptedAnswer":{"@type":"Answer","text":"The free tool handles Word files. The Docs to Markdown for AI Actor on Apify converts DOCX, XLSX, PPTX, PDF, HTML and CSV in bulk, with optional chunking for RAG, at $4 per 1,000 documents."}}
+ ]}
+]}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">K09 <span>Tools</span></a>
+  <nav class="site"><a href="../dmarc-spf-dkim-checker/">SPF/DKIM/DMARC</a><a href="../email-validator/">Email validator</a><a href="../pdf-to-csv/">PDF to CSV</a><a href="./" aria-current="page">Word to Markdown</a></nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>Free Word to Markdown converter</h1>
+  <p class="lede">Turn a .docx file into clean Markdown, with headings, lists, links and real tables, ready to paste into ChatGPT or Claude, a RAG pipeline, a docs site or GitHub. Your file stays on your computer.</p>
+
+  <div class="card">
+    <label for="file"><strong>Choose a Word document (.docx)</strong></label>
+    <input id="file" type="file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:block;margin-top:10px">
+    <p class="hint">Converted in your browser, so nothing is uploaded.</p>
+  </div>
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <div id="result" class="result"></div>
+
+  <div class="card cta">
+    <h3>Feeding documents to an LLM or RAG pipeline?</h3>
+    <p>Convert <strong>Word, Excel, PowerPoint, PDF, HTML and CSV</strong> in bulk from links or uploads, split them into chunks with heading paths, and call it from an API, LangChain or Zapier/Make. <strong>$4 per 1,000 documents</strong>.</p>
+    <a class="btn" href="https://apify.com/k09/docs-to-markdown" rel="noopener">Use Docs to Markdown for AI on Apify</a>
+  </div>
+
+  <h2>FAQ</h2>
+  <details><summary>Is my document uploaded?</summary><p>No. It's converted by your browser, using the open-source mammoth and turndown libraries, on your own computer.</p></details>
+  <details><summary>What formatting is kept?</summary><p>Headings, paragraphs, bold and italic, bulleted and numbered lists, links and tables (the first row becomes the header). Images are replaced by their alt text so the Markdown stays clean for AI tools.</p></details>
+  <details><summary>Why convert Word to Markdown for AI?</summary><p>Markdown keeps a document's structure (headings, lists, tables) in plain text, which language models read more accurately than raw text pasted from Word. It's also smaller and easier to split into chunks for retrieval.</p></details>
+  <details><summary>Can I convert Excel, PowerPoint or PDF too?</summary><p>This free tool handles Word files. <a href="https://apify.com/k09/docs-to-markdown">Docs to Markdown for AI</a> converts all of those formats in bulk, and the free <a href="../pdf-to-csv/">PDF to CSV</a> tool pulls tables out of PDFs.</p></details>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p>K09 Tools. Free utilities, plus paid bulk versions on Apify: <a href="https://apify.com/k09/email-list-cleaner">Email validator</a> · <a href="https://apify.com/k09/email-domain-audit">Deliverability checker</a> · <a href="https://apify.com/k09/pdf-text-tables">PDF table extractor</a> · <a href="https://apify.com/k09/docs-to-markdown">Docs to Markdown</a></p>
+</div></footer>
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.12.3/mammoth.browser.min.js"></script>
+<script type="module" src="../assets/js/word-tool.js"></script>
+</body>
+</html>
