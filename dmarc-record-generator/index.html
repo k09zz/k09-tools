@@ -76,6 +76,8 @@
     <a class="btn" href="https://apify.com/k09/email-domain-audit" rel="noopener">Bulk-check domains on Apify</a>
   </div>
 
+  <p class="hint" style="margin-top:20px">After publishing, confirm it works with the free <a href="../dmarc-record-checker/">DMARC record checker</a>, or run the <a href="../dmarc-spf-dkim-checker/">full SPF/DKIM/DMARC audit</a>.</p>
+
   <h2>FAQ</h2>
   <details><summary>Which policy should I start with?</summary><p>Start with <code>p=none</code> and a report address. That only monitors and never affects delivery. When reports show every legitimate sender passing, move to <code>quarantine</code> and then <code>reject</code>. Our guide walks through it: <a href="../guides/dmarc-none-to-reject/">Moving DMARC from p=none to p=reject</a>.</p></details>
   <details><summary>Where do I add the record?</summary><p>At your DNS host, add a <strong>TXT</strong> record with host <code>_dmarc</code> (some panels want the full <code>_dmarc.yourdomain.com</code>) and the value above. Keep only one DMARC record per domain.</p></details>

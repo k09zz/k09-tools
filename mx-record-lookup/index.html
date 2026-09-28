@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MX Record Lookup – Free MX Checker &amp; Email Provider Finder | K09 Tools</title>
+<meta name="description" content="Free MX record lookup: see a domain's mail servers in priority order and which email provider it uses (Google Workspace, Microsoft 365, Zoho, Proton and more). Detects null MX and missing MX.">
+<link rel="canonical" href="https://k09zz.github.io/k09-tools/mx-record-lookup/">
+<meta property="og:title" content="MX record lookup">
+<meta property="og:description" content="Free MX record lookup: see a domain's mail servers in priority order and which email provider it uses (Google Workspace, Microsoft 365, Zoho, Proton and more). Detects null MX and missing MX.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://k09zz.github.io/k09-tools/mx-record-lookup/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"MX record lookup","url":"https://k09zz.github.io/k09-tools/mx-record-lookup/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an MX record?","acceptedAnswer":{"@type":"Answer","text":"A DNS record that tells other mail servers where to deliver email for a domain. Each has a priority; lower numbers are tried first."}},{"@type":"Question","name":"What does \"null MX\" mean?","acceptedAnswer":{"@type":"Answer","text":"An MX record pointing to ., which states that the domain accepts no email at all (RFC 7505)."}},{"@type":"Question","name":"Can I check whether email addresses are real?","acceptedAnswer":{"@type":"Answer","text":"MX records show whether a domain can receive mail. To check a list of addresses (syntax, dead domains, disposable and role accounts), use the free email validator."}}]}]}
+</script>
+</head>
+<body data-mode="mx">
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">K09 <span>Tools</span></a>
+  <nav class="site"><a href="../dmarc-spf-dkim-checker/">SPF/DKIM/DMARC</a><a href="../email-validator/">Email validator</a><a href="../pdf-to-csv/">PDF to CSV</a><a href="../word-to-markdown/">Word to Markdown</a></nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>MX record lookup</h1>
+  <p class="lede">See which servers receive email for a domain, in priority order, and which email provider it uses. Handy for troubleshooting bounces or finding out whether a company uses Google Workspace or Microsoft 365.</p>
+
+  <form id="check-form" class="tool" autocomplete="off">
+    <label for="domain" style="position:absolute;left:-9999px">Domain</label>
+    <input id="domain" type="text" placeholder="example.com" inputmode="url" spellcheck="false" required>
+    <button id="check-btn" type="submit">Check</button>
+  </form>
+  <p class="hint">Works with a domain, an email address or a website URL. Lookups run in your browser over public DNS; nothing is stored.</p>
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <div id="result" class="result"></div>
+
+  <div class="card cta">
+    <h3>Checking many domains, or clients' domains?</h3>
+    <p>The <strong>Email Deliverability Checker</strong> audits SPF, DKIM, DMARC, MTA-STS and BIMI for hundreds or thousands of domains at once, grades each A–F with fixes, and exports to CSV/Excel or an API. Run it on a schedule to catch broken records. <strong>$8 per 1,000 domains</strong>, no subscription.</p>
+    <a class="btn" href="https://apify.com/k09/email-domain-audit" rel="noopener">Run the bulk checker on Apify</a>
+  </div>
+
+  <h2>FAQ</h2>
+  <details><summary>What is an MX record?</summary><p>A DNS record that tells other mail servers where to deliver email for a domain. Each has a priority; lower numbers are tried first.</p></details>
+  <details><summary>What does "null MX" mean?</summary><p>An MX record pointing to <code>.</code>, which states that the domain accepts no email at all (RFC 7505).</p></details>
+  <details><summary>Can I check whether email addresses are real?</summary><p>MX records show whether a domain can receive mail. To check a list of addresses (syntax, dead domains, disposable and role accounts), use the free <a href="../email-validator/">email validator</a>.</p></details>
+  <p class="hint" style="margin-top:24px">Related free tools: <a href="../dmarc-spf-dkim-checker/">Full SPF/DKIM/DMARC audit</a> · <a href="../spf-record-checker/">SPF checker</a> · <a href="../dmarc-record-checker/">DMARC checker</a> · <a href="../dkim-record-checker/">DKIM checker</a> · <a href="../mx-record-lookup/">MX lookup</a> · <a href="../gmail-yahoo-bulk-sender-checker/">Gmail/Yahoo sender rules</a> · <a href="../spf-record-generator/">SPF generator</a> · <a href="../dmarc-record-generator/">DMARC generator</a></p>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p>K09 Tools. Free utilities, plus paid bulk versions on Apify: <a href="https://apify.com/k09/email-list-cleaner">Email validator</a> · <a href="https://apify.com/k09/email-domain-audit">Deliverability checker</a> · <a href="https://apify.com/k09/pdf-text-tables">PDF table extractor</a> · <a href="https://apify.com/k09/docs-to-markdown">Docs to Markdown</a></p>
+</div></footer>
+<script type="module" src="../assets/js/record-tool.js"></script>
+</body>
+</html>

@@ -61,6 +61,8 @@
     <a class="btn" href="https://apify.com/k09/email-domain-audit" rel="noopener">Bulk-check domains on Apify</a>
   </div>
 
+  <p class="hint" style="margin-top:20px">After publishing, confirm it works with the free <a href="../spf-record-checker/">SPF record checker</a>, or run the <a href="../dmarc-spf-dkim-checker/">full SPF/DKIM/DMARC audit</a>.</p>
+
   <h2>FAQ</h2>
   <details><summary>Where do I add the SPF record?</summary><p>In your domain's DNS settings (at your registrar or DNS host), add a <strong>TXT</strong> record with host <code>@</code> and the value above. A domain may have <strong>only one</strong> SPF record. If one already exists, replace it with the combined record.</p></details>
   <details><summary>Should I use -all or ~all?</summary><p>Start with <code>~all</code> while you confirm every sender is listed. Once your DMARC reports show all legitimate mail passing, you can switch to <code>-all</code>. Never use <code>+all</code>, which lets anyone send as you.</p></details>

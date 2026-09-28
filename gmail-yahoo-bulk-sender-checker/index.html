@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gmail &amp; Yahoo Bulk Sender Requirements Checker (SPF, DKIM, DMARC) | K09 Tools</title>
+<meta name="description" content="Check whether your domain meets the Gmail and Yahoo (and Microsoft Outlook) bulk sender requirements: SPF, DKIM, DMARC, reports and MX, with a checklist of what to fix. Free, no sign-up.">
+<link rel="canonical" href="https://k09zz.github.io/k09-tools/gmail-yahoo-bulk-sender-checker/">
+<meta property="og:title" content="Gmail &amp; Yahoo bulk sender requirements checker">
+<meta property="og:description" content="Check whether your domain meets the Gmail and Yahoo (and Microsoft Outlook) bulk sender requirements: SPF, DKIM, DMARC, reports and MX, with a checklist of what to fix. Free, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://k09zz.github.io/k09-tools/gmail-yahoo-bulk-sender-checker/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Gmail & Yahoo bulk sender requirements checker","url":"https://k09zz.github.io/k09-tools/gmail-yahoo-bulk-sender-checker/","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are the Gmail and Yahoo sender requirements?","acceptedAnswer":{"@type":"Answer","text":"All senders need SPF or DKIM, valid forward and reverse DNS, TLS and a spam rate under 0.3%. Bulk senders (over 5,000 messages a day to Gmail) also need both SPF and DKIM, a DMARC record of at least p=none, a From domain aligned with SPF or DKIM, and one-click unsubscribe."}},{"@type":"Question","name":"Does Microsoft Outlook have the same rules?","acceptedAnswer":{"@type":"Answer","text":"Yes. Since May 2025 Outlook.com, Hotmail and Live require SPF, DKIM and DMARC from domains sending over 5,000 messages a day."}},{"@type":"Question","name":"What happens if I don't comply?","acceptedAnswer":{"@type":"Answer","text":"Your mail is increasingly rejected with 5.7.x errors or sent to spam, starting with the least-engaged recipients."}},{"@type":"Question","name":"Which parts can't be checked from DNS?","acceptedAnswer":{"@type":"Answer","text":"Alignment, one-click unsubscribe and spam rate depend on how your email is sent. Check a sent message's headers and Google Postmaster Tools for those."}}]}]}
+</script>
+</head>
+<body data-mode="bulk">
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">K09 <span>Tools</span></a>
+  <nav class="site"><a href="../dmarc-spf-dkim-checker/">SPF/DKIM/DMARC</a><a href="../email-validator/">Email validator</a><a href="../pdf-to-csv/">PDF to CSV</a><a href="../word-to-markdown/">Word to Markdown</a></nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>Gmail &amp; Yahoo bulk sender requirements checker</h1>
+  <p class="lede">Gmail, Yahoo and Outlook now reject or spam-folder mail from bulk senders without proper authentication. Enter your sending domain to see which of the DNS requirements you meet and what to fix.</p>
+
+  <form id="check-form" class="tool" autocomplete="off">
+    <label for="domain" style="position:absolute;left:-9999px">Domain</label>
+    <input id="domain" type="text" placeholder="example.com" inputmode="url" spellcheck="false" required>
+    <button id="check-btn" type="submit">Check</button>
+  </form>
+  <p class="hint">Works with a domain, an email address or a website URL. Lookups run in your browser over public DNS; nothing is stored.</p>
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <div id="result" class="result"></div>
+
+  <div class="card cta">
+    <h3>Checking many domains, or clients' domains?</h3>
+    <p>The <strong>Email Deliverability Checker</strong> audits SPF, DKIM, DMARC, MTA-STS and BIMI for hundreds or thousands of domains at once, grades each A–F with fixes, and exports to CSV/Excel or an API. Run it on a schedule to catch broken records. <strong>$8 per 1,000 domains</strong>, no subscription.</p>
+    <a class="btn" href="https://apify.com/k09/email-domain-audit" rel="noopener">Run the bulk checker on Apify</a>
+  </div>
+
+  <h2>FAQ</h2>
+  <details><summary>What are the Gmail and Yahoo sender requirements?</summary><p>All senders need SPF or DKIM, valid forward and reverse DNS, TLS and a spam rate under 0.3%. Bulk senders (over 5,000 messages a day to Gmail) also need both SPF and DKIM, a DMARC record of at least <code>p=none</code>, a From domain aligned with SPF or DKIM, and one-click unsubscribe.</p></details>
+  <details><summary>Does Microsoft Outlook have the same rules?</summary><p>Yes. Since May 2025 Outlook.com, Hotmail and Live require SPF, DKIM and DMARC from domains sending over 5,000 messages a day.</p></details>
+  <details><summary>What happens if I don't comply?</summary><p>Your mail is increasingly rejected with 5.7.x errors or sent to spam, starting with the least-engaged recipients.</p></details>
+  <details><summary>Which parts can't be checked from DNS?</summary><p>Alignment, one-click unsubscribe and spam rate depend on how your email is sent. Check a sent message's headers and Google Postmaster Tools for those.</p></details>
+  <p class="hint" style="margin-top:24px">Related free tools: <a href="../dmarc-spf-dkim-checker/">Full SPF/DKIM/DMARC audit</a> · <a href="../spf-record-checker/">SPF checker</a> · <a href="../dmarc-record-checker/">DMARC checker</a> · <a href="../dkim-record-checker/">DKIM checker</a> · <a href="../mx-record-lookup/">MX lookup</a> · <a href="../gmail-yahoo-bulk-sender-checker/">Gmail/Yahoo sender rules</a> · <a href="../spf-record-generator/">SPF generator</a> · <a href="../dmarc-record-generator/">DMARC generator</a></p>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p>K09 Tools. Free utilities, plus paid bulk versions on Apify: <a href="https://apify.com/k09/email-list-cleaner">Email validator</a> · <a href="https://apify.com/k09/email-domain-audit">Deliverability checker</a> · <a href="https://apify.com/k09/pdf-text-tables">PDF table extractor</a> · <a href="https://apify.com/k09/docs-to-markdown">Docs to Markdown</a></p>
+</div></footer>
+<script type="module" src="../assets/js/record-tool.js"></script>
+</body>
+</html>

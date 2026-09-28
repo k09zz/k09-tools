@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPF Record Checker – Free SPF Lookup &amp; 10 DNS Lookup Count | K09 Tools</title>
+<meta name="description" content="Free SPF record checker: look up any domain's SPF record, count DNS lookups against the limit of 10 through every include, and get plain-English fixes for permerrors, +all and duplicate records.">
+<link rel="canonical" href="https://k09zz.github.io/k09-tools/spf-record-checker/">
+<meta property="og:title" content="SPF record checker">
+<meta property="og:description" content="Free SPF record checker: look up any domain's SPF record, count DNS lookups against the limit of 10 through every include, and get plain-English fixes for permerrors, +all and duplicate records.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://k09zz.github.io/k09-tools/spf-record-checker/">
+<link rel="stylesheet" href="../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"SPF record checker","url":"https://k09zz.github.io/k09-tools/spf-record-checker/","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an SPF record?","acceptedAnswer":{"@type":"Answer","text":"A TXT record at the root of your domain, starting with v=spf1, that lists the servers allowed to send email for your domain. Receivers check it to spot spoofed mail."}},{"@type":"Question","name":"What is the 10 DNS lookup limit?","acceptedAnswer":{"@type":"Answer","text":"SPF may trigger at most 10 DNS lookups (each include, a, mx, exists and redirect, counted through nested includes). Above 10, SPF returns a permanent error and fails for every message. See how to fix too many DNS lookups."}},{"@type":"Question","name":"Should SPF end in ~all or -all?","acceptedAnswer":{"@type":"Answer","text":"Both are fine when you also have DMARC. -all (fail) is stricter; ~all (softfail) is the common, safe choice. Never use +all, which lets anyone send as you."}},{"@type":"Question","name":"Can I have two SPF records?","acceptedAnswer":{"@type":"Answer","text":"No. Two v=spf1 records make SPF fail. Merge them into one record with all the includes."}}]}]}
+</script>
+</head>
+<body data-mode="spf">
+<header class="site"><div class="wrap">
+  <a class="brand" href="../">K09 <span>Tools</span></a>
+  <nav class="site"><a href="../dmarc-spf-dkim-checker/">SPF/DKIM/DMARC</a><a href="../email-validator/">Email validator</a><a href="../pdf-to-csv/">PDF to CSV</a><a href="../word-to-markdown/">Word to Markdown</a></nav>
+</div></header>
+
+<main><div class="wrap">
+  <h1>SPF record checker</h1>
+  <p class="lede">Look up a domain's SPF record, see every include, and find out whether it breaks the <strong>10-DNS-lookup limit</strong>, the most common reason SPF silently fails.</p>
+
+  <form id="check-form" class="tool" autocomplete="off">
+    <label for="domain" style="position:absolute;left:-9999px">Domain</label>
+    <input id="domain" type="text" placeholder="example.com" inputmode="url" spellcheck="false" required>
+    <button id="check-btn" type="submit">Check</button>
+  </form>
+  <p class="hint">Works with a domain, an email address or a website URL. Lookups run in your browser over public DNS; nothing is stored.</p>
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <div id="result" class="result"></div>
+
+  <div class="card cta">
+    <h3>Checking many domains, or clients' domains?</h3>
+    <p>The <strong>Email Deliverability Checker</strong> audits SPF, DKIM, DMARC, MTA-STS and BIMI for hundreds or thousands of domains at once, grades each A–F with fixes, and exports to CSV/Excel or an API. Run it on a schedule to catch broken records. <strong>$8 per 1,000 domains</strong>, no subscription.</p>
+    <a class="btn" href="https://apify.com/k09/email-domain-audit" rel="noopener">Run the bulk checker on Apify</a>
+  </div>
+
+  <h2>FAQ</h2>
+  <details><summary>What is an SPF record?</summary><p>A TXT record at the root of your domain, starting with <code>v=spf1</code>, that lists the servers allowed to send email for your domain. Receivers check it to spot spoofed mail.</p></details>
+  <details><summary>What is the 10 DNS lookup limit?</summary><p>SPF may trigger at most 10 DNS lookups (each <code>include</code>, <code>a</code>, <code>mx</code>, <code>exists</code> and <code>redirect</code>, counted through nested includes). Above 10, SPF returns a permanent error and fails for every message. See <a href="../guides/spf-too-many-dns-lookups/">how to fix too many DNS lookups</a>.</p></details>
+  <details><summary>Should SPF end in ~all or -all?</summary><p>Both are fine when you also have DMARC. <code>-all</code> (fail) is stricter; <code>~all</code> (softfail) is the common, safe choice. Never use <code>+all</code>, which lets anyone send as you.</p></details>
+  <details><summary>Can I have two SPF records?</summary><p>No. Two <code>v=spf1</code> records make SPF fail. Merge them into one record with all the includes.</p></details>
+  <p class="hint" style="margin-top:24px">Related free tools: <a href="../dmarc-spf-dkim-checker/">Full SPF/DKIM/DMARC audit</a> · <a href="../spf-record-checker/">SPF checker</a> · <a href="../dmarc-record-checker/">DMARC checker</a> · <a href="../dkim-record-checker/">DKIM checker</a> · <a href="../mx-record-lookup/">MX lookup</a> · <a href="../gmail-yahoo-bulk-sender-checker/">Gmail/Yahoo sender rules</a> · <a href="../spf-record-generator/">SPF generator</a> · <a href="../dmarc-record-generator/">DMARC generator</a></p>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p>K09 Tools. Free utilities, plus paid bulk versions on Apify: <a href="https://apify.com/k09/email-list-cleaner">Email validator</a> · <a href="https://apify.com/k09/email-domain-audit">Deliverability checker</a> · <a href="https://apify.com/k09/pdf-text-tables">PDF table extractor</a> · <a href="https://apify.com/k09/docs-to-markdown">Docs to Markdown</a></p>
+</div></footer>
+<script type="module" src="../assets/js/record-tool.js"></script>
+</body>
+</html>
