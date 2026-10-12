@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPF PermError: The 6 Causes and How to Fix Each One | K09 Tools</title>
+<meta name="description" content="What SPF PermError means, the six things that cause it (two SPF records, too many lookups, void lookups, syntax errors, broken includes, bad redirect) and the exact fix for each.">
+<link rel="canonical" href="https://k09zz.github.io/k09-tools/guides/spf-permerror/">
+<meta property="og:title" content="SPF PermError: the 6 causes and how to fix each one">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://k09zz.github.io/k09-tools/guides/spf-permerror/">
+<link rel="stylesheet" href="../../assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"SPF PermError: the 6 causes and how to fix each one","datePublished":"2026-10-12","author":{"@type":"Organization","name":"K09 Tools"},"mainEntityOfPage":"https://k09zz.github.io/k09-tools/guides/spf-permerror/"}
+</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="../../">K09 <span>Tools</span></a>
+  <nav class="site"><a href="../../spf-record-checker/">SPF checker</a><a href="../../spf-record-generator/">SPF generator</a><a href="../../dmarc-spf-dkim-checker/">SPF/DKIM/DMARC</a></nav>
+</div></header>
+
+<main><div class="wrap" style="max-width:720px">
+  <h1>SPF PermError: the 6 causes and how to fix each one</h1>
+  <p class="lede"><strong>PermError</strong> ("permanent error") means a receiving mail server couldn't evaluate your SPF record at all. It isn't a temporary DNS hiccup: it will fail the same way every time until the record is fixed, and most receivers then count SPF as failed for DMARC.</p>
+
+  <div class="card"><strong>Find your cause in seconds:</strong> paste your domain into the free <a href="../../spf-record-checker/">SPF record checker</a>. It spots duplicate SPF records, counts lookups through every include and flags includes that have no SPF record.</div>
+
+  <h2>1. Two SPF records on the same domain</h2>
+  <p>The most common cause. A domain may have only <strong>one</strong> TXT record starting with <code>v=spf1</code>. Two records usually appear when a new email tool's setup guide says "add this SPF record" and someone adds it instead of merging.</p>
+  <p><strong>Fix:</strong> merge them into one. Keep a single <code>v=spf1</code>, put every <code>include:</code> and <code>ip4:</code> from both records in it, and end with one <code>~all</code> or <code>-all</code>.</p>
+  <pre><code># Wrong: two records
+v=spf1 include:_spf.google.com ~all
+v=spf1 include:sendgrid.net ~all
+
+# Right: one merged record
+v=spf1 include:_spf.google.com include:sendgrid.net ~all</code></pre>
+
+  <h2>2. More than 10 DNS lookups</h2>
+  <p>SPF allows at most 10 terms that trigger DNS lookups (<code>include</code>, <code>a</code>, <code>mx</code>, <code>exists</code>, <code>redirect</code>, <code>ptr</code>), <em>including the ones nested inside each include</em>. The eleventh causes PermError.</p>
+  <p><strong>Fix:</strong> remove senders you no longer use, drop unneeded <code>a</code>/<code>mx</code>, or move bulk mail to a subdomain. Full walkthrough: <a href="../spf-too-many-dns-lookups/">How to fix "SPF too many DNS lookups"</a>.</p>
+
+  <h2>3. More than 2 "void" lookups</h2>
+  <p>A void lookup is an include or <code>a</code>/<code>mx</code> term that points at a name with no DNS answer, often a provider you cancelled whose SPF host no longer exists. RFC 7208 lets receivers return PermError after <strong>two</strong> of them.</p>
+  <p><strong>Fix:</strong> remove includes for domains that no longer resolve. The <a href="../../spf-record-checker/">checker</a> flags includes whose target has no SPF record.</p>
+
+  <h2>4. A syntax error</h2>
+  <p>One typo makes the whole record invalid. The usual ones:</p>
+  <ul>
+    <li><code>v=spf1</code> missing or misspelled (<code>v=spf</code>, <code>v=SPF1 </code> with stray characters before it).</li>
+    <li>A colon where an equals sign belongs, or vice versa: <code>include=</code> instead of <code>include:</code>, <code>redirect:</code> instead of <code>redirect=</code>.</li>
+    <li>An IP range written wrong: <code>ip4:203.0.113.0/33</code>, or an IPv6 address under <code>ip4:</code>.</li>
+    <li>Smart quotes or a line break pasted in from a document.</li>
+    <li>An unknown word such as <code>include:spf.example.com all</code> (missing the <code>~</code> or <code>-</code> is fine; misspelling <code>all</code> is not).</li>
+  </ul>
+  <p><strong>Fix:</strong> rebuild the record from scratch with the <a href="../../spf-record-generator/">SPF record generator</a>, which only produces valid syntax, and paste the result over the old one.</p>
+
+  <h2>5. An include that itself has a PermError</h2>
+  <p>If you <code>include:</code> another domain and <em>its</em> SPF is broken, your evaluation fails too. You can't fix someone else's record.</p>
+  <p><strong>Fix:</strong> check that the include value is exactly what the provider documents today (providers rename their SPF hosts), and contact them if their record is broken.</p>
+
+  <h2>6. A <code>redirect=</code> with no SPF at the target</h2>
+  <p><code>redirect=_spf.example.com</code> hands evaluation to another domain. If that domain has no SPF record, the result is PermError.</p>
+  <p><strong>Fix:</strong> make sure the target has exactly one valid SPF record, or replace the redirect with an include.</p>
+
+  <h2>PermError vs. TempError vs. SoftFail</h2>
+  <ul>
+    <li><strong>PermError:</strong> your record is broken. Fix the record.</li>
+    <li><strong>TempError:</strong> a DNS server timed out. Usually fixes itself; recheck later.</li>
+    <li><strong>SoftFail / Fail:</strong> the record works, but the sending server isn't listed in it. Add the missing sender.</li>
+  </ul>
+
+  <h2>After fixing</h2>
+  <ol>
+    <li>Wait for the DNS TTL to pass (often 5 minutes to an hour).</li>
+    <li>Recheck with the <a href="../../spf-record-checker/">SPF checker</a> until it shows "pass" with no errors.</li>
+    <li>Check DKIM and DMARC too with the <a href="../../dmarc-spf-dkim-checker/">full SPF, DKIM &amp; DMARC checker</a>: Gmail and Yahoo require all three for bulk senders.</li>
+  </ol>
+
+  <div class="card cta">
+    <h3>Checking SPF for many domains?</h3>
+    <p>Agencies and IT teams can audit every client domain in one run: SPF errors and lookup counts, DMARC policy and DKIM, exported to a spreadsheet. <strong>$8 per 1,000 domains</strong>.</p>
+    <a class="btn" href="https://apify.com/k09/email-domain-audit" rel="noopener">Bulk-check domains on Apify</a>
+  </div>
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <p>K09 Tools. More guides: <a href="../spf-too-many-dns-lookups/">SPF too many DNS lookups</a> · <a href="../dmarc-none-to-reject/">DMARC p=none to p=reject</a></p>
+</div></footer>
+</body>
+</html>
